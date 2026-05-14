@@ -1,0 +1,18 @@
+name: Unreal Server Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  build-server:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Unreal Build
+        run: |
+          echo "Build Unreal Dedicated Server"
