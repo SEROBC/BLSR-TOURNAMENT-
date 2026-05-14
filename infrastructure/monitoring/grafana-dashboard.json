@@ -1,0 +1,13 @@
+{
+  "title": "BSLR Queue Metrics",
+  "panels": [
+    {
+      "title": "Settlement Queue Depth",
+      "type": "graph"
+    },
+    {
+      "title": "Replay Validation Queue",
+      "type": "graph"
+    }
+  ]
+}
