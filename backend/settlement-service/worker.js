@@ -1,15 +1,17 @@
-const Worker = require('bullmq').Worker;
-const { settleMatch } = require('./settle-match');
+const { Worker } = require('bullmq');
 
 const worker = new Worker(
     'settlement-queue',
+
     async job => {
 
-        await settleMatch(
-            job.data.matchId,
-            job.data.winnerId
-        );
+        console.log('Processing settlement:', job.data);
+
+        return {
+            success: true
+        };
     },
+
     {
         connection: {
             host: 'redis',
@@ -17,3 +19,5 @@ const worker = new Worker(
         }
     }
 );
+
+console.log('Settlement worker online');
