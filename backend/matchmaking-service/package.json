@@ -1,0 +1,11 @@
+{
+  "name": "matchmaking-service",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ioredis": "^5.3.2",
+    "uuid": "^9.0.1"
+  }
+}
