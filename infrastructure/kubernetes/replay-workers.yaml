@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: replay-workers
+
+spec:
+  replicas: 5
+
+  template:
+    spec:
+      containers:
+        - name: replay-worker
+          image: bslr/replay-worker:latest
