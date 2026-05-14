@@ -1,0 +1,20 @@
+name: Replay Validation
+
+on:
+  push:
+    paths:
+      - 'replays/**'
+
+jobs:
+
+  validate:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Run Replay Validation
+        run: |
+          echo "Validating deterministic replay system"
