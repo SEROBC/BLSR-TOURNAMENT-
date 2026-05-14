@@ -1,0 +1,21 @@
+name: Kubernetes Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Deploy
+        run: |
+          kubectl apply -f infrastructure/kubernetes
