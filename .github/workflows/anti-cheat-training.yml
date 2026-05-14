@@ -1,0 +1,25 @@
+name: Anti Cheat Training
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  train:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+
+      - name: Install ML Dependencies
+        run: |
+          pip install torch scikit-learn
+
+      - name: Train Model
+        run: |
+          python ai/train.py || true
