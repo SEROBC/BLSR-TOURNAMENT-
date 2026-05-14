@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matchmaking
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: matchmaking
+
+  template:
+    metadata:
+      labels:
+        app: matchmaking
+
+    spec:
+      containers:
+        - name: matchmaking
+          image: bslr/matchmaking:latest
+          ports:
+            - containerPort: 3001
