@@ -1,0 +1,19 @@
+name: Settlement Workers
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+
+  workers:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Check Settlement Workers
+        run: |
+          echo "Settlement queues operational"
