@@ -1,0 +1,19 @@
+apiVersion: agones.dev/v1
+kind: Fleet
+metadata:
+  name: bslr-fleet
+spec:
+  replicas: 20
+
+  template:
+    spec:
+      ports:
+        - name: default
+          portPolicy: Dynamic
+          containerPort: 7777
+
+      template:
+        spec:
+          containers:
+            - name: bslr-server
+              image: bslr/server:latest
