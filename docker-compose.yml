@@ -10,23 +10,28 @@ services:
   postgres:
     image: postgres:16
     environment:
+      POSTGRES_DB: bslr
       POSTGRES_USER: bslr
       POSTGRES_PASSWORD: securepassword
-      POSTGRES_DB: bslr
     ports:
       - "5432:5432"
 
   matchmaking:
     build: ./backend/matchmaking-service
+    command: npm run dev
+    volumes:
+      - ./:/workspace
     ports:
       - "3001:3001"
 
-  tournament:
-    build: ./backend/tournament-service
+  stripe-service:
+    build: ./backend/stripe-service
+    command: node server.js
+    volumes:
+      - ./:/workspace
     ports:
-      - "3002:3002"
+      - "4001:4001"
 
-  anti-cheat:
-    build: ./backend/anti-cheat-service
-    ports:
-      - "3003:3003"
+  settlement-worker:
+    build: ./backend/settlement-service
+    command: node worker.js
