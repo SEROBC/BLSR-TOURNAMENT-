@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stripe-service
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: stripe-service
+
+  template:
+    metadata:
+      labels:
+        app: stripe-service
+
+    spec:
+      containers:
+        - name: stripe-service
+          image: bslr/stripe-service:latest
+
+          env:
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secrets
+                  key: secret
