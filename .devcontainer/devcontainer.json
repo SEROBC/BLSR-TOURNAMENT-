@@ -1,0 +1,17 @@
+{
+  "name": "BSLR Platform",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "matchmaking",
+  "workspaceFolder": "/workspace",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.cpptools",
+        "dbaeumer.vscode-eslint",
+        "ms-python.python"
+      ]
+    }
+  }
+}
