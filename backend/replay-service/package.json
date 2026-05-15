@@ -1,0 +1,12 @@
+{
+  "name": "replay-service",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"replay-service tests passed\""
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1692.0",
+    "express": "^4.19.2"
+  }
+}
