@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
 
 jobs:
 
@@ -15,26 +14,32 @@ jobs:
     strategy:
       matrix:
         service:
+          - auth-service
           - matchmaking-service
-          - settlement-service
-          - stripe-service
           - wallet-service
-          - fraud-engine
+          - stripe-service
+          - settlement-service
+          - replay-service
+          - spectator-service
+          - compliance-service
+          - anti-cheat-service
+          - tournament-service
 
     steps:
 
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v5
 
-      - name: Setup Node
-        uses: actions/setup-node@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
-      - name: Install Dependencies
-        run: |
+      - run: |
           cd backend/${{ matrix.service }}
           npm install
+
+      - run: |
+          cd backend/${{ matrix.service }}
+          npm test          npm install
 
       - name: Run Tests
         run: |
