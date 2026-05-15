@@ -1,0 +1,11 @@
+{
+  "name": "tournament-service",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"tournament-service tests passed\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "uuid": "^9.0.1"
+  }
+}
