@@ -2,36 +2,37 @@ version: '3.9'
 
 services:
 
+  workspace:
+
+    image: node:22
+
+    command: sleep infinity
+
+    working_dir: /workspace
+
+    volumes:
+      - .:/workspace
+
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "3005:3005"
+
   redis:
+
     image: redis:7
+
     ports:
       - "6379:6379"
 
   postgres:
+
     image: postgres:16
+
     environment:
       POSTGRES_DB: bslr
       POSTGRES_USER: bslr
       POSTGRES_PASSWORD: securepassword
+
     ports:
       - "5432:5432"
-
-  matchmaking:
-    build: ./backend/matchmaking-service
-    command: npm run dev
-    volumes:
-      - ./:/workspace
-    ports:
-      - "3001:3001"
-
-  stripe-service:
-    build: ./backend/stripe-service
-    command: node server.js
-    volumes:
-      - ./:/workspace
-    ports:
-      - "4001:4001"
-
-  settlement-worker:
-    build: ./backend/settlement-service
-    command: node worker.js
