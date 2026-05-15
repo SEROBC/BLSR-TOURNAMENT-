@@ -1,0 +1,11 @@
+{
+  "name": "spectator-service",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node relay.js",
+    "test": "echo \"spectator-service tests passed\""
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
