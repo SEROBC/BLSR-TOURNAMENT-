@@ -1,10 +1,18 @@
-class BracketMatch {
+function generateBracket(players) {
 
-    constructor(player1, player2) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.winner = null;
+    const matches = [];
+
+    for (let i = 0; i < players.length; i += 2) {
+
+        matches.push({
+            player1: players[i],
+            player2: players[i + 1]
+        });
     }
+
+    return matches;
 }
 
-module.exports = BracketMatch;
+module.exports = {
+    generateBracket
+};
