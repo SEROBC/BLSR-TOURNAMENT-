@@ -1,37 +1,43 @@
-version: '3.9'
-
 services:
 
+  workspace:
+
+    image: node:22
+
+    container_name: bslr-workspace
+
+    working_dir: /workspace
+
+    command: sleep infinity
+
+    volumes:
+      - .:/workspace
+
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "3005:3005"
+      - "4001:4001"
+
   redis:
+
     image: redis:7
+
+    container_name: bslr-redis
+
     ports:
       - "6379:6379"
 
   postgres:
+
     image: postgres:16
+
+    container_name: bslr-postgres
+
     environment:
       POSTGRES_DB: bslr
       POSTGRES_USER: bslr
       POSTGRES_PASSWORD: securepassword
+
     ports:
       - "5432:5432"
-
-  auth-service:
-    build: ./backend/auth-service
-    ports:
-      - "3000:3000"
-
-  matchmaking-service:
-    build: ./backend/matchmaking-service
-    ports:
-      - "3001:3001"
-
-  wallet-service:
-    build: ./backend/wallet-service
-    ports:
-      - "3005:3005"
-
-  stripe-service:
-    build: ./backend/stripe-service
-    ports:
-      - "4001:4001"
