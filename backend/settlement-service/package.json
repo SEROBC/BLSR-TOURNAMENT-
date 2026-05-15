@@ -1,26 +1,14 @@
 {
   "name": "settlement-service",
   "version": "1.0.0",
-  "description": "BSLR escrow and settlement engine",
   "main": "worker.js",
-  "type": "commonjs",
-
   "scripts": {
     "start": "node worker.js",
-    "dev": "node worker.js",
     "test": "echo \"settlement-service tests passed\""
   },
-
   "dependencies": {
     "bullmq": "^5.7.8",
-    "dotenv": "^16.4.5",
     "ioredis": "^5.4.1",
-    "pg": "^8.11.5",
-    "stripe": "^16.5.0",
-    "uuid": "^9.0.1"
-  },
-
-  "engines": {
-    "node": ">=22.0.0"
+    "pg": "^8.11.5"
   }
 }
