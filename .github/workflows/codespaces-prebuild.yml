@@ -4,20 +4,86 @@ on:
   push:
     branches:
       - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
 
   prebuild:
 
+    name: Prebuild DevContainer
+
     runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      DOCKER_BUILDKIT: 1
+      COMPOSE_DOCKER_CLI_BUILD: 1
 
     steps:
 
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Validate Docker Compose
-        run: docker compose config
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build Containers
-        run: docker compose build
+      - name: Verify Docker Version
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Validate docker-compose.yml
+        run: |
+          docker compose config
+
+      - name: Ensure DevContainer Exists
+        run: |
+          test -f .devcontainer/devcontainer.json
+
+      - name: Print DevContainer Config
+        run: |
+          cat .devcontainer/devcontainer.json
+
+      - name: Build Workspace Container
+        run: |
+          docker compose build workspace
+
+      - name: Start Infrastructure
+        run: |
+          docker compose up -d redis postgres
+
+      - name: Wait For PostgreSQL
+        run: |
+          sleep 10
+
+      - name: Verify Running Containers
+        run: |
+          docker ps
+
+      - name: Validate Redis Connectivity
+        run: |
+          docker exec bslr-redis redis-cli ping
+
+      - name: Validate PostgreSQL Connectivity
+        run: |
+          docker exec bslr-postgres pg_isready
+
+      - name: Build Full Stack
+        run: |
+          docker compose up --build -d
+
+      - name: Verify Services
+        run: |
+          docker compose ps
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker compose down -v
