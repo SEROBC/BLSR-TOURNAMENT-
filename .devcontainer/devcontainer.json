@@ -1,17 +1,38 @@
 {
-  "name": "BSLR Platform",
-  "dockerComposeFile": "../docker-compose.yml",
-  "service": "matchmaking",
+  "name": "BSLR Tournament Platform",
+
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+
+  "service": "workspace",
+
   "workspaceFolder": "/workspace",
+
+  "shutdownAction": "stopCompose",
 
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-azuretools.vscode-docker",
         "ms-vscode.cpptools",
+        "ms-python.python",
+        "ms-azuretools.vscode-docker",
         "dbaeumer.vscode-eslint",
-        "ms-python.python"
+        "esbenp.prettier-vscode"
       ]
     }
-  }
+  },
+
+  "forwardPorts": [
+    3000,
+    3001,
+    3005,
+    5432,
+    6379,
+    8080
+  ],
+
+  "postCreateCommand": "npm install || true",
+
+  "remoteUser": "node"
 }
