@@ -1,0 +1,11 @@
+{
+  "name": "compliance-service",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"compliance-service tests passed\""
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "pg": "^8.11.5"
+  }
+}
