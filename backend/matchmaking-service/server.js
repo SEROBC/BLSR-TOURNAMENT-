@@ -1,24 +1,27 @@
 const express = require('express');
 const Redis = require('ioredis');
+const { v4: uuid } = require('uuid');
+
+const redis = new Redis({
+    host: 'redis',
+    port: 6379
+});
 
 const app = express();
-const redis = new Redis();
 
 app.use(express.json());
 
 app.post('/queue', async (req, res) => {
 
-    const ticket = {
-        playerId: req.body.playerId,
+    const player = {
+        id: uuid(),
         mmr: req.body.mmr,
         region: req.body.region
     };
 
-    await redis.lpush('matchmaking:queue', JSON.stringify(ticket));
+    await redis.lpush('matchmaking', JSON.stringify(player));
 
-    res.json({ queued: true });
+    res.json(player);
 });
 
-app.listen(3001, () => {
-    console.log('Matchmaking running');
-});
+app.listen(3001);
