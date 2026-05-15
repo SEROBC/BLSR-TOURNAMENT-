@@ -1,17 +1,37 @@
 const { Worker } = require('bullmq');
+const { Pool } = require('pg');
+
+const db = new Pool({
+    connectionString: process.env.POSTGRES_URL
+});
 
 const worker = new Worker(
     'settlement-queue',
-
     async job => {
 
-        console.log('Processing settlement:', job.data);
+        const client = await db.connect();
 
-        return {
-            success: true
-        };
+        try {
+
+            await client.query('BEGIN');
+
+            await client.query(`
+                UPDATE wallets
+                SET available_balance = available_balance + $1
+                WHERE user_id = $2
+            `, [job.data.amount, job.data.winnerId]);
+
+            await client.query('COMMIT');
+
+        } catch (err) {
+
+            await client.query('ROLLBACK');
+            throw err;
+
+        } finally {
+            client.release();
+        }
     },
-
     {
         connection: {
             host: 'redis',
@@ -20,4 +40,4 @@ const worker = new Worker(
     }
 );
 
-console.log('Settlement worker online');
+console.log('settlement-service online');
